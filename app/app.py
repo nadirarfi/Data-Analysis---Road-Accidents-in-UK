@@ -9,7 +9,7 @@ from flask_googlemaps import Map
 from urllib.parse import urlencode
 import requests
 
-api_key = "AIzaSyBwx4dzgid-JuepltZ-JZat56Jt_VsKKKM"
+api_key = ""
 app = Flask(__name__, template_folder='./templates')
 app.config['GOOGLEMAPS_KEY'] = api_key
 CORS(app)

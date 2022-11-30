@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accident severity prediction tool</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/opensans-font.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/material-design-iconic-font/css/material-design-iconic-font.min.css') }}">
+	<!-- datepicker -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    {% if map %}
+        {{map.js}} 
+    {% endif %}
+
+</head>
+<body>
+	<div class="page-content">
+		<div class="wizard-heading">Tool for predicting accident severity</div> 
+		<div class="wizard-v6-content">
+
+            
+			<div class="wizard-form">
+                
+		        <form class="form-register" id="form-register" action="/predict" method="POST">
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			            <h2>
+
+			            </h2>
+			            <section>
+			                <div class="inner">
+			                	<div class="form-heading">
+			                		<h3>Define contributing factors</h3>
+			                		<span>Model based on Random Forest</span>
+
+			                	</div>
+								
+
+{% if factors%}
+
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+                                <div class="form-row">
+                                    <div class="form-holder">
+										<label class="form-row-inner">
+											<input type="text" class="form-control" id="address" name="address" required>
+											<span class="label">Target address, postal code, city</span>
+										</label>
+									</div>                                    
+                                </div>
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+{% for list_of_3 in [['Daytime', 'Day', 'Speed Limit'], ['Weather Conditions', 'Light Conditions', 'Road Surface Conditions'],
+['Area', 'Road Type', 'Special Conditions At Site'],
+['1st Road Class', 'Junction Control', 'Junction Detail'] ]%}
+                                <div class="form-row">
+                                    {% for key in list_of_3 %}
+                                    <div class="form-holder">
+										<label for="time" class="special-label-1">{{key}} </label>
+										<select name="one" id="color" class="form-control">
+                                            {% for (label, code) in factors[key].items() %}
+                                                <option value={{code}} selected>{{label}}</option>
+                                            {% endfor %}
+										</select>
+										<span class="select-btn">
+											<i class="zmdi zmdi-chevron-down"></i>
+										</span>
+									</div>
+                                    {% endfor %}
+								</div>
+{% endfor %}
+
+
+
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------->
+							</div>
+			            </section>
+		        	</div>
+					<button class="button-30" type="submit">Predict Severity</button>
+					{% endif%}
+
+                    {% if map %}
+                        <h3>Accident was classified as {{severity}}</h3>
+                        {{map.html}}
+                    {% endif %}
+
+
+		        </form>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>
